@@ -1,21 +1,22 @@
-const { Router } = require("express");
+const { Router }  =  require("express");
 
-const NotesController = require("../controllers/NotesController");
-const ensureAuthenticated = require("../middlewares/ensureAuthenticated")
+const NotesControllers = require("../controllers/NotesControllers");
 
-const notesRoutes = Router();
+const ensureAuthenticated = require("../middlewares/ensureAuthenticated");
 
-const notesController = new NotesController();
+const notesRouter = Router();
 
-notesRoutes.use(ensureAuthenticated);
+const notesControllers = new NotesControllers();
 
-notesRoutes.post("/", notesController.create);
-notesRoutes.get("/:id", notesController.show);
-notesRoutes.delete("/:id", notesController.delete);
-notesRoutes.get("/", notesController.index);
+notesRouter.use(ensureAuthenticated);
+
+notesRouter.get("/", notesControllers.index);
+notesRouter.post("/", notesControllers.create);
+notesRouter.get("/:id", notesControllers.show);
+notesRouter.delete("/:id", notesControllers.delete);
 
 
 
 
-module.exports = notesRoutes;
 
+module.exports = notesRouter;
